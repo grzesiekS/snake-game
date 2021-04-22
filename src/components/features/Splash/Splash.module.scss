@@ -4,3 +4,10 @@
   text-shadow: 2px 2px 0px rgba(255, 255, 255, 1);
   margin-top: 25%;
 }
+
+.control {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto;
+  justify-content: space-around;
+}
