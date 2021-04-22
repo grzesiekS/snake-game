@@ -1,9 +1,16 @@
+@import "./settings.scss";
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body, html {
   margin: 0;
+}
+
+body {
+  background-color: $global-bg-color;
+  color: $global-text-color;
 }
 
 html {
