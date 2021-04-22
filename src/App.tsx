@@ -6,7 +6,7 @@ import './styles/global.scss';
 const App: React.FC = () => (
   <div>
     <MainLayout>
-      <h1>React app (TypeScript)</h1>
+      <></>
     </MainLayout>
   </div>
 );
