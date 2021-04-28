@@ -1,8 +1,8 @@
 import React from 'react';
-import { Board } from '../../features/Board/Board';
+import { Game } from '../../features/Game/Game';
 
 export const GamePage: React.FC = () => (
   <>
-    <Board />
+    <Game />
   </>
 );
