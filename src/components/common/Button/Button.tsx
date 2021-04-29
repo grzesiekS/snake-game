@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import styles from './Button.module.scss';
 
@@ -31,6 +31,15 @@ const buttonRender =
           >
             {text}
           </Link>
+        );
+      case 'NavLink':
+        return (
+          <NavLink
+            className={styles.button} 
+            to={to}
+          >
+            {text}
+          </NavLink>
         );
       default:
         return (
