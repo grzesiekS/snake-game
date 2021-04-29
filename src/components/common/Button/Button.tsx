@@ -35,7 +35,8 @@ const buttonRender =
       case 'NavLink':
         return (
           <NavLink
-            className={styles.button} 
+            activeClassName={styles.active}
+            className={styles.link}
             to={to}
           >
             {text}

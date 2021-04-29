@@ -4,7 +4,6 @@
   background-color: transparent;
   padding: 12px;
   font-size: 15px;
-  font-family: $globalFont;
   color: $global-text-color;
   border: 2px solid white;
   transition: all 1s;
@@ -18,3 +17,20 @@
     box-shadow: 5px 5px 14px -3px rgba(255,255,255,0.38);
   }
 }
+
+.link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $global-text-color;
+  transition: all 1s;
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+  }
+
+  &.active {
+    color: white;
+  }
+}
+
