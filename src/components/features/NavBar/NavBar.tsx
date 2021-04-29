@@ -18,7 +18,7 @@ export const NavBar: React.FC<NavBarProps> = ({ links }) => (
         <li key={link._id}>
           <Button
             text={link.text}
-            Type='Link'
+            Type='NavLink'
             to={link.url}
           />
         </li>
