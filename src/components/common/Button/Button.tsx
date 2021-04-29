@@ -12,6 +12,39 @@ interface ButtonProps {
   to?: string;
 }
 
+const buttonRender = 
+  (
+    text: string, 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Type: any,  
+    to: string,
+    OnClickFunc?: () => void,
+    href?: string
+  ) => {
+
+    switch(Type) {
+      case 'Link':
+        return (
+          <Link
+            className={styles.button} 
+            to={to}
+          >
+            {text}
+          </Link>
+        );
+      default:
+        return (
+          <Type
+            className={styles.button}
+            onClick={OnClickFunc}
+            href={href}
+          >
+            {text}
+          </Type>
+        );
+    }
+  };
+
 export const Button: React.FC<ButtonProps> = (
   { 
     text,
@@ -21,25 +54,6 @@ export const Button: React.FC<ButtonProps> = (
     to='/',
   }) => {
   return (
-    <>
-      {
-        Type === 'Link'
-          ?
-          <Link
-            className={styles.button} 
-            to={to}
-          >
-            {text}
-          </Link>
-          :
-          <Type
-            className={styles.button}
-            onClick={OnClickFunc}
-            href={href}
-          >
-            {text}
-          </Type>
-      }
-    </>
+    buttonRender(text, Type, to, OnClickFunc, href)
   );
 };
