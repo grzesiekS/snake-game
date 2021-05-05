@@ -1,0 +1,20 @@
+@import "../../../../styles/settings.scss";
+
+.board {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  border: 2px solid $border-color;
+  display: inline-block;
+}
+
+.row {
+  display: flex;
+}
+
+.block {
+  border: 1px solid $border-color;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
