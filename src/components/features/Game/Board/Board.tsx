@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { Title } from '../../../common/Title/Title';
+
 import styles from './Board.module.scss';
 
 export const Board: React.FC = () => {
   return (
     <div className={styles.container}>
-      <h1>Board for the game</h1>
+      <Title text='Snake' type='small' />
     </div>
   );
 };
