@@ -9,6 +9,7 @@
   transition: all 1s;
   text-decoration: none;
   text-transform: uppercase;
+  font-family: $globalFont;
 
   &:hover {
     cursor: pointer;
