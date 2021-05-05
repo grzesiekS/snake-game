@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
+import { Title } from '../../common/Title/Title';
 
 import styles from './Game.module.scss';
 
@@ -20,6 +21,7 @@ const linksData = [
 export const Game: React.FC = () => (
   <div className={styles.container}>
     <NavBar links={linksData} />
+    <Title text='Snake' type='small' />
     <Board />
   </div>
 );
