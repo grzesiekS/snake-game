@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import clsx from 'clsx';
 
 import styles from './Board.module.scss';
 
@@ -43,9 +44,13 @@ export const Board: React.FC<BoardProps> = ({ snakePosition }) => {
             {element.map(block => (
               <div 
                 key={uuidv4()} 
-                className={styles.block}
+                className={
+                  block === 1 
+                    ? 
+                    clsx(styles.block, styles.snake) 
+                    : 
+                    styles.block}
               >
-                {block}
               </div>
             ))}
           </div>
