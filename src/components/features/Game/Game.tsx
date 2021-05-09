@@ -25,8 +25,8 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     for(let i = 1; i < snakeLength; i++) {
-      setSnakePosition([...snakePosition, [snakePosition[snakePosition.length - 1][0], 
-        snakePosition[snakePosition.length - 1][1] + 1]]);
+      setSnakePosition([[snakePosition[0][0], 
+        snakePosition[0][1] + 1], ...snakePosition]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakeLength]);
