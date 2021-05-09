@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
@@ -18,10 +18,25 @@ const linksData = [
   },
 ];
 
-export const Game: React.FC = () => (
-  <div className={styles.container}>
-    <NavBar links={linksData} />
-    <Title text='Snake' type='small' />
-    <Board />
-  </div>
-);
+export const Game: React.FC = () => {
+
+  const [snakePosition, setSnakePosition] = useState([[0,0]]);
+  const [snakeLength, setSnakeLength] = useState(1);
+
+  useEffect(() => {
+    for(let i = 1; i < snakeLength; i++) {
+      setSnakePosition([...snakePosition, [snakePosition[snakePosition.length - 1][0], 
+        snakePosition[snakePosition.length - 1][1] + 1]]);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[snakeLength]);
+
+  return (
+    <div className={styles.container}>
+      <NavBar links={linksData} />
+      <button onClick={() => setSnakeLength(snakeLength + 1)}>+</button>
+      <Title text='Snake' type='small' />
+      <Board snakePosition={snakePosition} />
+    </div>
+  );
+};
