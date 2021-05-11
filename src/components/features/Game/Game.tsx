@@ -18,18 +18,32 @@ const linksData = [
   },
 ];
 
+let position = [[0,0]];
+
 export const Game: React.FC = () => {
 
-  const [snakePosition, setSnakePosition] = useState([[0,0]]);
+  const [snakePosition, setSnakePosition] = useState([...position]);
   const [snakeLength, setSnakeLength] = useState(1);
 
   useEffect(() => {
     for(let i = 1; i < snakeLength; i++) {
-      setSnakePosition([[snakePosition[0][0], 
-        snakePosition[0][1] + 1], ...snakePosition]);
+      position = [[snakePosition[0][0], 
+        snakePosition[0][1] + 1], ...snakePosition];
+      setSnakePosition([...position]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakeLength]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      for(let i = 0; i < snakeLength; i++) {
+        position[i][1]++;
+      }
+      setSnakePosition([...position]);
+    }, 1000);
+
+    return () => {clearInterval(interval);};
+  },[snakeLength, snakePosition]);
 
   return (
     <div className={styles.container}>
