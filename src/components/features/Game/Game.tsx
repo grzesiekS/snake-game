@@ -42,6 +42,7 @@ export const Game: React.FC = () => {
       for(let i = 0; i < snakeLength; i++) {
         if(position[i + 1]) {
           position[i][1] = position[i + 1][1];
+          position[i][0] = position[i + 1][0];
         } else {
           switch(movementDirection) {
             case 'left':
@@ -59,16 +60,43 @@ export const Game: React.FC = () => {
           }
         }
       }
-    },[movementDirection, snakeLength]);
+    },[movementDirection, snakeLength]
+  );
+  
+  const handleMovementDirection = useCallback(
+    (key: string) => {
+      switch(key) {
+        case 'ArrowLeft':
+          setMovementDirection('left');
+          break;
+        case 'ArrowRight':
+          setMovementDirection('right');
+          break;
+        case 'ArrowUp':
+          setMovementDirection('up');
+          break;
+        case 'ArrowDown':
+          setMovementDirection('down');
+          break;
+      }
+    },[]
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
       handleSnakeMovement();
       setSnakePosition([...position]);
-    }, 1000);
+    }, 500);
 
     return () => {clearInterval(interval);};
   },[handleSnakeMovement, snakeLength, snakePosition]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      handleMovementDirection(e.key);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     <div className={styles.container}>
