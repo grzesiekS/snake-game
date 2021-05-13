@@ -37,7 +37,11 @@ export const Game: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       for(let i = 0; i < snakeLength; i++) {
-        position[i][1]++;
+        if(position[i + 1]) {
+          position[i][1] = position[i + 1][1];
+        } else {
+          position[i][1]++;
+        }
       }
       setSnakePosition([...position]);
     }, 1000);
