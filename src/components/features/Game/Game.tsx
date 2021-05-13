@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
@@ -34,8 +34,8 @@ export const Game: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakeLength]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const handleSnakeMovment = useCallback(
+    () => {
       for(let i = 0; i < snakeLength; i++) {
         if(position[i + 1]) {
           position[i][1] = position[i + 1][1];
@@ -43,11 +43,16 @@ export const Game: React.FC = () => {
           position[i][1]++;
         }
       }
+    },[snakeLength]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleSnakeMovment();
       setSnakePosition([...position]);
     }, 1000);
 
     return () => {clearInterval(interval);};
-  },[snakeLength, snakePosition]);
+  },[handleSnakeMovment, snakeLength, snakePosition]);
 
   return (
     <div className={styles.container}>
