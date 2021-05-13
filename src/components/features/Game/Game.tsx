@@ -28,10 +28,26 @@ export const Game: React.FC = () => {
     useState<'left' | 'right' | 'up' | 'down'>
     ('right');
 
+  const handleSnakeLengthChange = useCallback(() => {
+    if(movementDirection === 'right') {
+      position = [[snakePosition[snakeLength - 1][0], 
+        snakePosition[snakeLength - 1][1] + 1], ...snakePosition];
+    } else if(movementDirection === 'left') {
+      position = [[snakePosition[snakeLength - 1][0], 
+        snakePosition[snakeLength - 1][1] - 1], ...snakePosition];
+    } else if(movementDirection === 'up') {
+      position = [[snakePosition[snakeLength - 1][0] + 1, 
+        snakePosition[snakeLength - 1][1]], ...snakePosition];
+    } else if(movementDirection === 'down') {
+      position = [[snakePosition[snakeLength - 1][0] - 1, 
+        snakePosition[snakeLength - 1][1]], ...snakePosition];
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[movementDirection, snakePosition]);
+
   useEffect(() => {
     for(let i = 1; i < snakeLength; i++) {
-      position = [[snakePosition[0][0], 
-        snakePosition[0][1] + 1], ...snakePosition];
+      handleSnakeLengthChange();
       setSnakePosition([...position]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +78,16 @@ export const Game: React.FC = () => {
       }
     },[movementDirection, snakeLength]
   );
-  
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleSnakeMovement();
+      setSnakePosition([...position]);
+    }, 250);
+
+    return () => {clearInterval(interval);};
+  },[handleSnakeMovement, snakeLength, snakePosition]);
+
   const handleMovementDirection = useCallback(
     (key: string) => {
       switch(key) {
@@ -81,15 +106,6 @@ export const Game: React.FC = () => {
       }
     },[]
   );
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleSnakeMovement();
-      setSnakePosition([...position]);
-    }, 500);
-
-    return () => {clearInterval(interval);};
-  },[handleSnakeMovement, snakeLength, snakePosition]);
 
   useEffect(() => {
     window.addEventListener('keydown', (e) => {
