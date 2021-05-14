@@ -20,6 +20,11 @@ const linksData = [
 
 let position = [[0,0]];
 
+const boardSize = {
+  rows: 21,
+  columns: 35,
+};
+
 export const Game: React.FC = () => {
 
   const [snakePosition, setSnakePosition] = useState([...position]);
@@ -122,7 +127,11 @@ export const Game: React.FC = () => {
       <NavBar links={linksData} />
       <button onClick={() => setSnakeLength(snakeLength + 1)}>+</button>
       <Title text='Snake' type='small' />
-      <Board snakePosition={snakePosition} />
+      <Board 
+        snakePosition={snakePosition} 
+        rowsCount={boardSize.rows}
+        columnsCount={boardSize.columns}
+      />
     </div>
   );
 };

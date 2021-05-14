@@ -7,13 +7,15 @@ import styles from './Board.module.scss';
 
 interface BoardProps {
   snakePosition: number[][],
+  rowsCount: number,
+  columnsCount: number,
 }
 
-export const Board: React.FC<BoardProps> = ({ snakePosition }) => {
+export const Board: React.FC<BoardProps> = ({ snakePosition, rowsCount, columnsCount }) => {
 
   const [ boardArray, setBoardArray ] = useState<Array<Array<number>>>([]);
-  const [ rowSize ] = useState<number>(21);
-  const [ columnSize ] = useState<number>(35);
+  const [ rowSize ] = useState<number>(rowsCount);
+  const [ columnSize ] = useState<number>(columnsCount);
 
   const handleSnakePosition = useCallback((boardArray) => {
     const result = boardArray;
