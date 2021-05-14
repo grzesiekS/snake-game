@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
@@ -27,6 +27,9 @@ export const Game: React.FC = () => {
   const [movementDirection, setMovementDirection] = 
     useState<'left' | 'right' | 'up' | 'down'>
     ('right');
+
+  const movementRef = useRef<'left' | 'right' | 'up' | 'down'>();
+  movementRef.current = movementDirection;
 
   const handleSnakeLengthChange = useCallback(() => {
     if(movementDirection === 'right') {
@@ -83,7 +86,7 @@ export const Game: React.FC = () => {
     const interval = setInterval(() => {
       handleSnakeMovement();
       setSnakePosition([...position]);
-    }, 250);
+    }, 100);
 
     return () => {clearInterval(interval);};
   },[handleSnakeMovement, snakeLength, snakePosition]);
@@ -92,16 +95,16 @@ export const Game: React.FC = () => {
     (key: string) => {
       switch(key) {
         case 'ArrowLeft':
-          setMovementDirection('left');
+          if(movementRef.current !== 'right') setMovementDirection('left');
           break;
         case 'ArrowRight':
-          setMovementDirection('right');
+          if(movementRef.current !== 'left') setMovementDirection('right');
           break;
         case 'ArrowUp':
-          setMovementDirection('up');
+          if(movementRef.current !== 'down') setMovementDirection('up');
           break;
         case 'ArrowDown':
-          setMovementDirection('down');
+          if(movementRef.current !== 'up') setMovementDirection('down');
           break;
       }
     },[]
