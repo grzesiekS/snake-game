@@ -1,4 +1,21 @@
-.container {
+@import "../../../styles/settings.scss";
+
+.container_on {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: '';
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    top: -55px;
+    left: 0;
+    opacity: 0.7;
+  }
+}
+
+.container_off {
   position: relative;
 }
 
@@ -7,4 +24,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: $global-bg-color;
+  width: 25%;
+  height: 25%;
+  padding: 30px;
+}
+
+.flexBox {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
 }
