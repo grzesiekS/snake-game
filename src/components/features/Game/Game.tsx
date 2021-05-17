@@ -51,10 +51,10 @@ export const Game: React.FC = () => {
       position = [[snakePosition[snakeLength - 1][0], 
         snakePosition[snakeLength - 1][1] - 1], ...snakePosition];
     } else if(movementDirection === 'up') {
-      position = [[snakePosition[snakeLength - 1][0] + 1, 
+      position = [[snakePosition[snakeLength - 1][0] - 1, 
         snakePosition[snakeLength - 1][1]], ...snakePosition];
     } else if(movementDirection === 'down') {
-      position = [[snakePosition[snakeLength - 1][0] - 1, 
+      position = [[snakePosition[snakeLength - 1][0] + 1, 
         snakePosition[snakeLength - 1][1]], ...snakePosition];
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -176,6 +176,8 @@ export const Game: React.FC = () => {
           snakePosition={snakePosition} 
           rowsCount={boardSize.rows}
           columnsCount={boardSize.columns}
+          snakeLenght={snakeLength}
+          gameOverFunc={() => setGameOver(true)}
         />
       </div>
       {gameQuit ? <Redirect push to='/' /> : null}

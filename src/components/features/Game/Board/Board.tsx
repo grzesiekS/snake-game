@@ -9,22 +9,44 @@ interface BoardProps {
   snakePosition: number[][],
   rowsCount: number,
   columnsCount: number,
+  snakeLenght: number,
+  gameOverFunc: () => void;
 }
 
-export const Board: React.FC<BoardProps> = ({ snakePosition, rowsCount, columnsCount }) => {
+export const Board: React.FC<BoardProps> = (
+  { 
+    snakePosition,
+    rowsCount,
+    columnsCount,
+    snakeLenght,
+    gameOverFunc,
+  }) => {
 
   const [ boardArray, setBoardArray ] = useState<Array<Array<number>>>([]);
   const [ rowSize ] = useState<number>(rowsCount);
   const [ columnSize ] = useState<number>(columnsCount);
 
   const handleSnakePosition = useCallback((boardArray) => {
-    const result = boardArray;
+    const result: number[][] = boardArray;
+    let count = 0;
 
     snakePosition.forEach(position => {
       result[position[0]][position[1]] = 1;
     });
 
+    for(let i = 0; i < result.length; i++) {
+      const snakeOnBoard = result[i].filter(res => res === 1);
+      if(snakeOnBoard.length > 0) {
+        count += snakeOnBoard.length;
+      }
+    }
+
+    if(count !== snakeLenght) {
+      gameOverFunc();
+    }
+
     return result;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakePosition]);
 
   useEffect(() => {
