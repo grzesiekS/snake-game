@@ -5,6 +5,7 @@ import { Title } from '../../common/Title/Title';
 import { Modal } from '../../common/Modal/Modal';
 
 import styles from './Game.module.scss';
+import { Redirect } from 'react-router';
 
 const linksData = [
   {
@@ -34,6 +35,7 @@ export const Game: React.FC = () => {
     useState<'left' | 'right' | 'up' | 'down'>
     ('right');
   const [gameOver, setGameOver] = useState(false);
+  const [gameQuit, setGameQuit] = useState(false);
 
   const movementRef = useRef<'left' | 'right' | 'up' | 'down'>();
   movementRef.current = movementDirection;
@@ -63,6 +65,12 @@ export const Game: React.FC = () => {
       handleSnakeLengthChange();
       setSnakePosition([...position]);
     }
+
+    return () => {
+      position=[[0,0]];
+      setSnakePosition([...position]);
+      setSnakeLength(1);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakeLength]);
 
@@ -134,11 +142,32 @@ export const Game: React.FC = () => {
     window.addEventListener('keydown', (e) => {
       handleMovementDirection(e.key);
     });
+
+    return () => {
+      window.removeEventListener('keydown', (e) => {
+        handleMovementDirection(e.key);
+      });
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
+  const handleGameRestart = () => {
+    window.location.reload();
+  };
+
+  const handleGameQuit = () => {
+    setGameQuit(true);
+  };
+
   return (
-    <Modal showModal={gameOver}>
+    <Modal 
+      showModal={gameOver}
+      title='Game Over'
+      leftButtonText='Restart'
+      rightButtonText='Quit Game'
+      leftButtonAction={() => handleGameRestart()}
+      rightButtonAction={() => handleGameQuit()}
+    >
       <div className={styles.container}>
         <NavBar links={linksData} />
         <button onClick={() => setSnakeLength(snakeLength + 1)}>+</button>
@@ -149,6 +178,8 @@ export const Game: React.FC = () => {
           columnsCount={boardSize.columns}
         />
       </div>
+      {gameQuit ? <Redirect push to='/' /> : null}
+      {}
     </Modal>
   );
 };
