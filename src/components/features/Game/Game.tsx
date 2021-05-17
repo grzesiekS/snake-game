@@ -69,7 +69,6 @@ export const Game: React.FC = () => {
     return () => {
       position=[[0,0]];
       setSnakePosition([...position]);
-      setSnakeLength(1);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakeLength]);
@@ -157,6 +156,7 @@ export const Game: React.FC = () => {
 
   const handleGameQuit = () => {
     setGameQuit(true);
+    setSnakeLength(1);
   };
 
   return (
