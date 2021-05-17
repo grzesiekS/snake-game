@@ -36,6 +36,9 @@ export const Game: React.FC = () => {
   const movementRef = useRef<'left' | 'right' | 'up' | 'down'>();
   movementRef.current = movementDirection;
 
+  const snakeLengthRef = useRef<number>();
+  snakeLengthRef.current = snakeLength;
+
   const handleSnakeLengthChange = useCallback(() => {
     if(movementDirection === 'right') {
       position = [[snakePosition[snakeLength - 1][0], 
@@ -100,16 +103,20 @@ export const Game: React.FC = () => {
     (key: string) => {
       switch(key) {
         case 'ArrowLeft':
-          if(movementRef.current !== 'right') setMovementDirection('left');
+          if(snakeLengthRef.current === 1) setMovementDirection('left');
+          else if(movementRef.current !== 'right') setMovementDirection('left');
           break;
         case 'ArrowRight':
-          if(movementRef.current !== 'left') setMovementDirection('right');
+          if(snakeLengthRef.current === 1) setMovementDirection('right');
+          else if(movementRef.current !== 'left') setMovementDirection('right');
           break;
         case 'ArrowUp':
-          if(movementRef.current !== 'down') setMovementDirection('up');
+          if(snakeLengthRef.current === 1) setMovementDirection('up');
+          else if(movementRef.current !== 'down') setMovementDirection('up');
           break;
         case 'ArrowDown':
-          if(movementRef.current !== 'up') setMovementDirection('down');
+          if(snakeLengthRef.current === 1) setMovementDirection('down');
+          else if(movementRef.current !== 'up') setMovementDirection('down');
           break;
       }
     },[]
