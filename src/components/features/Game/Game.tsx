@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
+import { Modal } from '../../common/Modal/Modal';
 
 import styles from './Game.module.scss';
 
@@ -137,15 +138,17 @@ export const Game: React.FC = () => {
   },[]);
 
   return (
-    <div className={styles.container}>
-      <NavBar links={linksData} />
-      <button onClick={() => setSnakeLength(snakeLength + 1)}>+</button>
-      <Title text='Snake' type='small' />
-      <Board 
-        snakePosition={snakePosition} 
-        rowsCount={boardSize.rows}
-        columnsCount={boardSize.columns}
-      />
-    </div>
+    <Modal showModal={gameOver}>
+      <div className={styles.container}>
+        <NavBar links={linksData} />
+        <button onClick={() => setSnakeLength(snakeLength + 1)}>+</button>
+        <Title text='Snake' type='small' />
+        <Board 
+          snakePosition={snakePosition} 
+          rowsCount={boardSize.rows}
+          columnsCount={boardSize.columns}
+        />
+      </div>
+    </Modal>
   );
 };
