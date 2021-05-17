@@ -32,6 +32,7 @@ export const Game: React.FC = () => {
   const [movementDirection, setMovementDirection] = 
     useState<'left' | 'right' | 'up' | 'down'>
     ('right');
+  const [gameOver, setGameOver] = useState(false);
 
   const movementRef = useRef<'left' | 'right' | 'up' | 'down'>();
   movementRef.current = movementDirection;
@@ -73,16 +74,20 @@ export const Game: React.FC = () => {
         } else {
           switch(movementDirection) {
             case 'left':
-              position[i][1]--;
+              if(position[i][1] <= 0) setGameOver(true);
+              else position[i][1]--;
               break;
             case 'right':
-              position[i][1]++;
+              if(position[i][1] >= boardSize.columns - 1) setGameOver(true);
+              else position[i][1]++;
               break;
             case 'up':
-              position[i][0]--;
+              if(position[i][0] <= 0) setGameOver(true);
+              else position[i][0]--;
               break;
             case 'down':
-              position[i][0]++;
+              if(position[i][0] >= boardSize.rows - 1) setGameOver(true);
+              else position[i][0]++;
               break;
           }
         }
@@ -96,8 +101,10 @@ export const Game: React.FC = () => {
       setSnakePosition([...position]);
     }, 100);
 
+    if(gameOver) clearInterval(interval);
+
     return () => {clearInterval(interval);};
-  },[handleSnakeMovement, snakeLength, snakePosition]);
+  },[gameOver, handleSnakeMovement, snakeLength, snakePosition]);
 
   const handleMovementDirection = useCallback(
     (key: string) => {
