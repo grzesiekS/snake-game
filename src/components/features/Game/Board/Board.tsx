@@ -35,7 +35,11 @@ export const Board: React.FC<BoardProps> = (
     let count = 0;
 
     snakePosition.forEach(position => {
-      result[position[0]][position[1]] = 1;
+      try {
+        result[position[0]][position[1]] = 1;
+      } catch(err) {
+        gameOverFunc();
+      }
     });
 
     if(pointSquare.length === 2) result[pointSquare[0]][pointSquare[1]] = 2;

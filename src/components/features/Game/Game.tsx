@@ -44,19 +44,31 @@ export const Game: React.FC = () => {
   const snakeLengthRef = useRef<number>();
   snakeLengthRef.current = snakeLength;
 
-  const randomPointSquereGenerator = () => {
-    setPointSquare([
-      Math.floor(Math.random() * ((boardSize.rows - 1) - 0) + 0),
-      Math.floor(Math.random() * ((boardSize.columns - 1) - 0) + 0),
-    ]);
-  };
+  const randomPointSquareGenerator = useCallback(() => {
+    let leftPosition = 0;
+    let rightPosition = 0;
+    let positionApproved = false;
 
-  useEffect(() => {
-    randomPointSquereGenerator();
+    do {
+      leftPosition = Math.floor(Math.random() * ((boardSize.rows - 1) - 1) + 1);
+      rightPosition = Math.floor(Math.random() * ((boardSize.columns - 1) - 1) + 1);
+      const snakePositionFilter = position.filter(pos => pos[0] === leftPosition && pos[1] === rightPosition);
+      if(snakePositionFilter.length === 0) positionApproved = true;
+    } while (positionApproved === false);
+
+    setPointSquare([
+      leftPosition,
+      rightPosition,
+    ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
+  useEffect(() => {
+    randomPointSquareGenerator();
+  },[randomPointSquareGenerator]);
+
   const handleSnakeLengthChange = useCallback(() => {
-    randomPointSquereGenerator();
+    randomPointSquareGenerator();
     if(movementDirection === 'right') {
       position = [[snakePosition[snakeLength - 1][0], 
         snakePosition[snakeLength - 1][1] + 1], ...snakePosition];
@@ -70,6 +82,8 @@ export const Game: React.FC = () => {
       position = [[snakePosition[snakeLength - 1][0] + 1, 
         snakePosition[snakeLength - 1][1]], ...snakePosition];
     }
+
+    if(gameOver) setPointSquare([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[movementDirection, snakePosition]);
 
