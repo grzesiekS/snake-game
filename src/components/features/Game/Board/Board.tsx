@@ -11,6 +11,7 @@ interface BoardProps {
   columnsCount: number,
   snakeLenght: number,
   gameOverFunc: () => void;
+  pointSquare: number[];
 }
 
 export const Board: React.FC<BoardProps> = (
@@ -20,6 +21,7 @@ export const Board: React.FC<BoardProps> = (
     columnsCount,
     snakeLenght,
     gameOverFunc,
+    pointSquare,
   }) => {
 
   const [ boardArray, setBoardArray ] = useState<Array<Array<number>>>([]);
@@ -33,6 +35,8 @@ export const Board: React.FC<BoardProps> = (
     snakePosition.forEach(position => {
       result[position[0]][position[1]] = 1;
     });
+
+    if(pointSquare.length === 2) result[pointSquare[0]][pointSquare[1]] = 2;
 
     for(let i = 0; i < result.length; i++) {
       const snakeOnBoard = result[i].filter(res => res === 1);
@@ -73,7 +77,9 @@ export const Board: React.FC<BoardProps> = (
                     ? 
                     clsx(styles.block, styles.snake) 
                     : 
-                    styles.block}
+                    block === 2
+                      ? clsx(styles.block, styles.point)
+                      : styles.block}
               >
               </div>
             ))}

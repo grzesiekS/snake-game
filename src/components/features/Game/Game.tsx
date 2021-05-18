@@ -36,12 +36,24 @@ export const Game: React.FC = () => {
     ('right');
   const [gameOver, setGameOver] = useState(false);
   const [gameQuit, setGameQuit] = useState(false);
+  const [pointSquare, setPointSquare] = useState<number[]>([]);
 
   const movementRef = useRef<'left' | 'right' | 'up' | 'down'>();
   movementRef.current = movementDirection;
 
   const snakeLengthRef = useRef<number>();
   snakeLengthRef.current = snakeLength;
+
+  const randomPointSquereGenerator = () => {
+    setPointSquare([
+      Math.floor(Math.random() * ((boardSize.rows - 1) - 0) + 0),
+      Math.floor(Math.random() * ((boardSize.columns - 1) - 0) + 0),
+    ]);
+  };
+
+  useEffect(() => {
+    randomPointSquereGenerator();
+  },[]);
 
   const handleSnakeLengthChange = useCallback(() => {
     if(movementDirection === 'right') {
@@ -178,6 +190,7 @@ export const Game: React.FC = () => {
           columnsCount={boardSize.columns}
           snakeLenght={snakeLength}
           gameOverFunc={() => setGameOver(true)}
+          pointSquare={pointSquare}
         />
       </div>
       {gameQuit ? <Redirect push to='/' /> : null}

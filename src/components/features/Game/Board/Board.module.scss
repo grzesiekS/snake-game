@@ -21,4 +21,8 @@
   &.snake {
     background-color: $snake-block-color;
   }
+
+  &.point {
+    background-color: $point-block-color;
+  }
 }
