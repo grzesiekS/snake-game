@@ -13,13 +13,13 @@
 }
 
 .block {
-  border: 1px solid $border-color;
   width: 30px;
   height: 30px;
   text-align: center;
 
   &.snake {
     background-color: $snake-block-color;
+    border: 1px solid $auroraGreenDark;
   }
 
   &.point {
