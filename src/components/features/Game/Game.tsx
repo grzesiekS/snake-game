@@ -56,6 +56,7 @@ export const Game: React.FC = () => {
   },[]);
 
   const handleSnakeLengthChange = useCallback(() => {
+    randomPointSquereGenerator();
     if(movementDirection === 'right') {
       position = [[snakePosition[snakeLength - 1][0], 
         snakePosition[snakeLength - 1][1] + 1], ...snakePosition];
@@ -182,7 +183,6 @@ export const Game: React.FC = () => {
     >
       <div className={styles.container}>
         <NavBar links={linksData} />
-        <button onClick={() => setSnakeLength(snakeLength + 1)}>+</button>
         <Title text='Snake' type='small' />
         <Board 
           snakePosition={snakePosition} 
@@ -191,6 +191,7 @@ export const Game: React.FC = () => {
           snakeLenght={snakeLength}
           gameOverFunc={() => setGameOver(true)}
           pointSquare={pointSquare}
+          snakeLengthChange={() => setSnakeLength(snakeLength + 1)}
         />
       </div>
       {gameQuit ? <Redirect push to='/' /> : null}

@@ -10,8 +10,9 @@ interface BoardProps {
   rowsCount: number,
   columnsCount: number,
   snakeLenght: number,
-  gameOverFunc: () => void;
-  pointSquare: number[];
+  gameOverFunc: () => void,
+  pointSquare: number[],
+  snakeLengthChange: () => void,
 }
 
 export const Board: React.FC<BoardProps> = (
@@ -22,6 +23,7 @@ export const Board: React.FC<BoardProps> = (
     snakeLenght,
     gameOverFunc,
     pointSquare,
+    snakeLengthChange,
   }) => {
 
   const [ boardArray, setBoardArray ] = useState<Array<Array<number>>>([]);
@@ -46,7 +48,9 @@ export const Board: React.FC<BoardProps> = (
     }
 
     if(count !== snakeLenght) {
-      gameOverFunc();
+      if(snakePosition[snakeLenght-1][0] === pointSquare[0] 
+        && snakePosition[snakeLenght-1][1] === pointSquare[1]) snakeLengthChange();
+      else gameOverFunc();
     }
 
     return result;
