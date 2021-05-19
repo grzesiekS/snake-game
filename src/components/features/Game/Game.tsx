@@ -50,8 +50,8 @@ export const Game: React.FC = () => {
     let positionApproved = false;
 
     do {
-      leftPosition = Math.floor(Math.random() * ((boardSize.rows - 1) - 1) + 1);
-      rightPosition = Math.floor(Math.random() * ((boardSize.columns - 1) - 1) + 1);
+      leftPosition = Math.floor(Math.random() * ((boardSize.rows - 1) - 0) + 0);
+      rightPosition = Math.floor(Math.random() * ((boardSize.columns - 1) - 0) + 0);
       const snakePositionFilter = position.filter(pos => pos[0] === leftPosition && pos[1] === rightPosition);
       if(snakePositionFilter.length === 0) positionApproved = true;
     } while (positionApproved === false);
