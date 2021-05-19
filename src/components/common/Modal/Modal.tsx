@@ -27,7 +27,7 @@ export const Modal: React.FC<ModalProps> = (
     {showModal 
       ? 
       <div className={styles.modal}>
-        <Title text={title} type='small' />
+        <Title text={title} type='medium' />
         <div className={styles.flexBox}>
           <Button 
             text={leftButtonText}
