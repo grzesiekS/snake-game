@@ -230,6 +230,7 @@ export const Game: React.FC = () => {
       rightButtonText='Quit Game'
       leftButtonAction={() => handleGameRestart()}
       rightButtonAction={() => handleGameQuit()}
+      message={`Your score was ${score}`}
     >
       <div className={styles.container}>
         <NavBar links={linksData} />
