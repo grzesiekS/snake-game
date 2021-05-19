@@ -11,6 +11,7 @@ interface ModalProps {
   leftButtonAction: () => void;
   rightButtonText: string;
   rightButtonAction: () => void;
+  message?: string;
 }
 
 export const Modal: React.FC<ModalProps> = (
@@ -21,6 +22,7 @@ export const Modal: React.FC<ModalProps> = (
     rightButtonText,
     leftButtonAction,
     rightButtonAction,
+    message,
   }
 ) => (
   <div className={showModal ? styles.container_on : styles.container_off}>
@@ -28,6 +30,7 @@ export const Modal: React.FC<ModalProps> = (
       ? 
       <div className={styles.modal}>
         <Title text={title} type='medium' />
+        <p className={styles.message}>{message}</p>
         <div className={styles.flexBox}>
           <Button 
             text={leftButtonText}

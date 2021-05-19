@@ -28,11 +28,16 @@
   background-color: $global-bg-color;
   width: 25%;
   height: 25%;
-  padding: 30px;
+  padding: 15px 30px 30px;
 }
 
 .flexBox {
   padding: 20px 0;
   display: flex;
   justify-content: space-around;
+}
+
+.message {
+  text-align: center;
+  margin: 0;
 }
