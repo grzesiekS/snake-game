@@ -20,7 +20,7 @@ const linksData = [
   },
 ];
 
-let position = [[0,0]];
+let position = [[0,0,0]];
 
 const boardSize = {
   rows: 21,
@@ -67,20 +67,41 @@ export const Game: React.FC = () => {
     randomPointSquareGenerator();
   },[randomPointSquareGenerator]);
 
+  const newSnakePosition = () => {
+    const newSnakePosition: number[] = [];
+    switch(snakePosition[0][2]) {
+      case 6:
+        newSnakePosition[0] = snakePosition[0][0];
+        newSnakePosition[1] = snakePosition[0][1] - 1;
+        break;
+      case 4:
+        newSnakePosition[0] = snakePosition[0][0];
+        newSnakePosition[1] = snakePosition[0][1] + 1;
+        break;
+      case 8:
+        newSnakePosition[0] = snakePosition[0][0] + 1;
+        newSnakePosition[1] = snakePosition[0][1];
+        break;
+      case 2:
+        newSnakePosition[0] = snakePosition[0][0] - 1;
+        newSnakePosition[1] = snakePosition[0][1];
+        break;
+    }
+
+    return newSnakePosition;
+  };
+
   const handleSnakeLengthChange = useCallback(() => {
     randomPointSquareGenerator();
+    const newPosition = newSnakePosition();
     if(movementDirection === 'right') {
-      position = [[snakePosition[snakeLength - 1][0], 
-        snakePosition[snakeLength - 1][1] + 1], ...snakePosition];
+      position = [[...newPosition , 6], ...snakePosition];
     } else if(movementDirection === 'left') {
-      position = [[snakePosition[snakeLength - 1][0], 
-        snakePosition[snakeLength - 1][1] - 1], ...snakePosition];
+      position = [[...newPosition , 4], ...snakePosition];
     } else if(movementDirection === 'up') {
-      position = [[snakePosition[snakeLength - 1][0] - 1, 
-        snakePosition[snakeLength - 1][1]], ...snakePosition];
+      position = [[...newPosition , 8], ...snakePosition];
     } else if(movementDirection === 'down') {
-      position = [[snakePosition[snakeLength - 1][0] + 1, 
-        snakePosition[snakeLength - 1][1]], ...snakePosition];
+      position = [[...newPosition , 2], ...snakePosition];
     }
 
     if(gameOver) setPointSquare([]);
@@ -104,25 +125,38 @@ export const Game: React.FC = () => {
     () => {
       for(let i = 0; i < snakeLength; i++) {
         if(position[i + 1]) {
+          position[i][2] = position[i + 1][2];
           position[i][1] = position[i + 1][1];
           position[i][0] = position[i + 1][0];
         } else {
           switch(movementDirection) {
             case 'left':
               if(position[i][1] <= 0) setGameOver(true);
-              else position[i][1]--;
+              else {
+                position[i][1]--;
+                position[i][2] = 4;
+              }
               break;
             case 'right':
               if(position[i][1] >= boardSize.columns - 1) setGameOver(true);
-              else position[i][1]++;
+              else {
+                position[i][1]++;
+                position[i][2] = 6;
+              }
               break;
             case 'up':
               if(position[i][0] <= 0) setGameOver(true);
-              else position[i][0]--;
+              else {
+                position[i][0]--;
+                position[i][2] = 8;
+              }
               break;
             case 'down':
               if(position[i][0] >= boardSize.rows - 1) setGameOver(true);
-              else position[i][0]++;
+              else {
+                position[i][0]++;
+                position[i][2] = 2;
+              }
               break;
           }
         }
