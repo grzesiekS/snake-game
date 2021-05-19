@@ -3,6 +3,7 @@ import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
 import { Modal } from '../../common/Modal/Modal';
+import { Score } from './Score/Score';
 
 import styles from './Game.module.scss';
 import { Redirect } from 'react-router';
@@ -232,6 +233,7 @@ export const Game: React.FC = () => {
       <div className={styles.container}>
         <NavBar links={linksData} />
         <Title text='Snake' type='small' />
+        <Score />
         <Board 
           snakePosition={snakePosition} 
           rowsCount={boardSize.rows}
