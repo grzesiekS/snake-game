@@ -38,6 +38,7 @@ export const Game: React.FC = () => {
   const [gameOver, setGameOver] = useState(false);
   const [gameQuit, setGameQuit] = useState(false);
   const [pointSquare, setPointSquare] = useState<number[]>([]);
+  const [score, setScore] = useState(0);
 
   const movementRef = useRef<'left' | 'right' | 'up' | 'down'>();
   movementRef.current = movementDirection;
@@ -233,7 +234,11 @@ export const Game: React.FC = () => {
       <div className={styles.container}>
         <NavBar links={linksData} />
         <Title text='Snake' type='small' />
-        <Score />
+        <Score 
+          score={score} 
+          snakeLength={snakeLength}
+          setNewScore={newScore => setScore(newScore)}
+        />
         <Board 
           snakePosition={snakePosition} 
           rowsCount={boardSize.rows}
