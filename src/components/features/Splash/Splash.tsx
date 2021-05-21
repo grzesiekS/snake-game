@@ -14,12 +14,14 @@ export const Splash: React.FC = ({}) => {
         text='Snake Game'
         type='large'
       />
-      <Input
-        id='playerName'
-        labelText='Player Name'
-        value={playerName}
-        onChangeFunc={name => setPlayerName(name)}
-      />
+      <div className={styles.form}>
+        <Input
+          id='playerName'
+          labelText='Player Name'
+          value={playerName}
+          onChangeFunc={name => setPlayerName(name)}
+        />
+      </div>
       <div className={styles.control}>
         <Button Type='Link' to='/game' text={'Start Game'} />
         <Button text={'Score List'} />
