@@ -75,18 +75,22 @@ export const Game: React.FC = () => {
       case 6:
         newSnakePosition[0] = snakePosition[0][0];
         newSnakePosition[1] = snakePosition[0][1] - 1;
+        newSnakePosition[2] = 6;
         break;
       case 4:
         newSnakePosition[0] = snakePosition[0][0];
         newSnakePosition[1] = snakePosition[0][1] + 1;
+        newSnakePosition[2] = 4;
         break;
       case 8:
         newSnakePosition[0] = snakePosition[0][0] + 1;
         newSnakePosition[1] = snakePosition[0][1];
+        newSnakePosition[2] = 8;
         break;
       case 2:
         newSnakePosition[0] = snakePosition[0][0] - 1;
         newSnakePosition[1] = snakePosition[0][1];
+        newSnakePosition[2] = 2;
         break;
     }
 
@@ -96,15 +100,7 @@ export const Game: React.FC = () => {
   const handleSnakeLengthChange = useCallback(() => {
     randomPointSquareGenerator();
     const newPosition = newSnakePosition();
-    if(movementDirection === 'right') {
-      position = [[...newPosition , 6], ...snakePosition];
-    } else if(movementDirection === 'left') {
-      position = [[...newPosition , 4], ...snakePosition];
-    } else if(movementDirection === 'up') {
-      position = [[...newPosition , 8], ...snakePosition];
-    } else if(movementDirection === 'down') {
-      position = [[...newPosition , 2], ...snakePosition];
-    }
+    position = [[...newPosition], ...snakePosition];
 
     if(gameOver) setPointSquare([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
