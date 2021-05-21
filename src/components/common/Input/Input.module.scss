@@ -8,6 +8,7 @@
   padding: 7px;
   font-family: $globalFont;
   border: none;
+  transition: all 1s;
 
   &:focus {
     outline: none;
