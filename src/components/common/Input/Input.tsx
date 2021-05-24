@@ -23,7 +23,7 @@ export const Input: React.FC<InputProps> = ({ labelText, id, value, onChangeFunc
       value={value}
       onChange={e => onChangeFunc(e.currentTarget.value)}
       className={styles.input}
-      max={maxTextLength}
+      maxLength={maxTextLength}
     />
   </>
 );
