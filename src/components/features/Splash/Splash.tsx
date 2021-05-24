@@ -30,10 +30,6 @@ export const Splash: React.FC = ({}) => {
     }
   };
 
-  useEffect(() => (
-    setStartGame(false)
-  ),[]);
-
   return (
     <div className={styles.container}>
       <Title 
