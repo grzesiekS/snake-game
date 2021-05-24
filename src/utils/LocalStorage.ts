@@ -4,9 +4,8 @@ interface scoreObject {
   score: number,
 }
 
-export const getLocalStorageData = (key: string):void => {
-  const localData = localStorage.getItem(key);
-  console.log(localData);
+export const getLocalStorageData = (key: string):string | null => {
+  return localStorage.getItem(key);
 };
 
 export const setLocalStorageScoreData = (key:string, data: scoreObject[]):void => {
