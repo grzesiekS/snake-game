@@ -11,7 +11,7 @@ export const Splash: React.FC = ({}) => {
   const [startGame, setStartGame] = useState(false);
 
   const handleStartGame = ():void => {
-    if(playerName && playerName.length <= 50) {
+    if(playerName && playerName.length <= 25) {
       setStartGame(true);
     }
   };
@@ -32,6 +32,7 @@ export const Splash: React.FC = ({}) => {
           labelText='Player Name'
           value={playerName}
           onChangeFunc={name => setPlayerName(name)}
+          maxTextLength={25}
         />
       </div>
       <div className={styles.control}>
