@@ -1,4 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Redirect } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
+import {
+  getLocalStorageData,
+  setLocalStorageScoreData,
+} from '../../../utils/LocalStorage';
+import { getSessionStorageData } from '../../../utils/SessionStorage';
+
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
@@ -6,7 +14,6 @@ import { Modal } from '../../common/Modal/Modal';
 import { Score } from './Score/Score';
 
 import styles from './Game.module.scss';
-import { Redirect } from 'react-router';
 
 const linksData = [
   {
@@ -119,6 +126,10 @@ export const Game: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[snakeLength]);
 
+  const handleGameOver = useCallback(() => {
+    setGameOver(true);
+  },[]);
+
   const handleSnakeMovement = useCallback(
     () => {
       for(let i = 0; i < snakeLength; i++) {
@@ -129,28 +140,28 @@ export const Game: React.FC = () => {
         } else {
           switch(movementDirection) {
             case 'left':
-              if(position[i][1] <= 0) setGameOver(true);
+              if(position[i][1] <= 0) handleGameOver();
               else {
                 position[i][1]--;
                 position[i][2] = 4;
               }
               break;
             case 'right':
-              if(position[i][1] >= boardSize.columns - 1) setGameOver(true);
+              if(position[i][1] >= boardSize.columns - 1) handleGameOver();
               else {
                 position[i][1]++;
                 position[i][2] = 6;
               }
               break;
             case 'up':
-              if(position[i][0] <= 0) setGameOver(true);
+              if(position[i][0] <= 0) handleGameOver();
               else {
                 position[i][0]--;
                 position[i][2] = 8;
               }
               break;
             case 'down':
-              if(position[i][0] >= boardSize.rows - 1) setGameOver(true);
+              if(position[i][0] >= boardSize.rows - 1) handleGameOver();
               else {
                 position[i][0]++;
                 position[i][2] = 2;
@@ -159,7 +170,7 @@ export const Game: React.FC = () => {
           }
         }
       }
-    },[movementDirection, snakeLength]
+    },[movementDirection, snakeLength, handleGameOver]
   );
 
   useEffect(() => {
@@ -209,11 +220,27 @@ export const Game: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
+  const handleScoreSave = () => {
+    const scoreStorageData = JSON.parse(getLocalStorageData('scoreList') || '[]');
+    const playerSorageData = JSON.parse(getSessionStorageData('player') || '{}');
+
+    setLocalStorageScoreData('scoreList', [
+      {
+        id: uuidv4(),
+        playerName: playerSorageData.name,
+        score: score,
+      },
+      ...scoreStorageData,
+    ]);
+  };
+
   const handleGameRestart = () => {
+    handleScoreSave();
     window.location.reload();
   };
 
   const handleGameQuit = () => {
+    handleScoreSave();
     setGameQuit(true);
     setSnakeLength(1);
   };
@@ -241,7 +268,7 @@ export const Game: React.FC = () => {
           rowsCount={boardSize.rows}
           columnsCount={boardSize.columns}
           snakeLenght={snakeLength}
-          gameOverFunc={() => setGameOver(true)}
+          gameOverFunc={() => handleGameOver()}
           pointSquare={pointSquare}
           snakeLengthChange={() => setSnakeLength(snakeLength + 1)}
         />
