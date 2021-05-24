@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
+import { 
+  removeSessionStorageData,
+  setSessionStoragePlayerData,
+} from '../../../utils/SessionStorage';
+
 import { Button } from '../../common/Button/Button';
 import { Title } from '../../common/Title/Title';
 import { Input } from '../../common/Input/Input';
 
 import styles from './Splash.module.scss';
-import { Redirect } from 'react-router';
 
 export const Splash: React.FC = ({}) => {
   const [playerName, setPlayerName] = useState('Player Name');
@@ -12,6 +18,14 @@ export const Splash: React.FC = ({}) => {
 
   const handleStartGame = ():void => {
     if(playerName && playerName.length <= 25) {
+      const playerData = {
+        id: uuidv4(),
+        name: playerName,
+      };
+
+      removeSessionStorageData('player');
+      setSessionStoragePlayerData('player', playerData);
+
       setStartGame(true);
     }
   };
