@@ -50,7 +50,11 @@ export const Splash: React.FC = ({}) => {
           text={'Start Game'}
           OnClickFunc={() => handleStartGame()}
         />
-        <Button text={'Score List'} />
+        <Button
+          Type='Link'
+          to='/scoreList'
+          text={'Score List'}
+        />
       </div>
       {startGame && <Redirect to='/game' />}
     </div>
