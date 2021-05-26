@@ -7,6 +7,8 @@ import {
 } from '../../../utils/LocalStorage';
 import { getSessionStorageData } from '../../../utils/SessionStorage';
 
+import { linksData, boardSize } from '../../../data/data';
+
 import { NavBar } from '../NavBar/NavBar';
 import { Board } from './Board/Board';
 import { Title } from '../../common/Title/Title';
@@ -15,25 +17,7 @@ import { Score } from './Score/Score';
 
 import styles from './Game.module.scss';
 
-const linksData = [
-  {
-    _id: '1',
-    text: 'Start Game',
-    url: '/game',
-  },
-  {
-    _id: '2',
-    text: 'Score List',
-    url: '/scores',
-  },
-];
-
 let position = [[0,0,0]];
-
-const boardSize = {
-  rows: 21,
-  columns: 35,
-};
 
 export const Game: React.FC = () => {
 
