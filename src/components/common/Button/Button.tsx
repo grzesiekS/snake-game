@@ -35,6 +35,7 @@ const buttonRender =
       case 'NavLink':
         return (
           <NavLink
+            exact
             activeClassName={styles.active}
             className={styles.link}
             to={to}
