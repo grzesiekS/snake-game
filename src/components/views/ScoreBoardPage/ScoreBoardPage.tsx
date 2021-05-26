@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { ScoreBoard } from '../../features/ScoreBoard/ScoreBoard';
+
 export const ScoreBoardPage: React.FC = () => (
   <>
-    <h1>Score List</h1>
+    <ScoreBoard />
   </>
 );
