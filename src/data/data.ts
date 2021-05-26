@@ -1,13 +1,13 @@
 export const linksData = [
   {
     _id: '1',
-    text: 'Start Game',
-    url: '/game',
+    text: 'Home Page',
+    url: '/',
   },
   {
     _id: '2',
     text: 'Score List',
-    url: '/scores',
+    url: '/scoreList',
   },
 ];
 
