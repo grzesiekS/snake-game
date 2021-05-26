@@ -11,31 +11,29 @@ interface scoreObject {
 
 export const ScoreList: React.FC = () => {
 
-  const [scoresData, setScorsData] = useState<scoreObject[]>([]);
+  const [scoresData, setScoresData] = useState<scoreObject[]>([]);
 
   useEffect(() => {
-    const localStorageData = JSON.parse(getLocalStorageData('scoreList') || '[]');
-    setScorsData(localStorageData);
+    const localStorageData:scoreObject[] = JSON.parse(getLocalStorageData('scoreList') || '[]');
+    setScoresData(localStorageData.sort((a,b) => a.score < b.score ? 1 : -1));
   }, []);
 
   return (
-    <div className={styles.container}>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <td>Player Name</td>
-            <td>Score</td>
+    <table className={styles.table}>
+      <thead className={styles.header}>
+        <tr>
+          <td>Player Name</td>
+          <td>Score</td>
+        </tr>
+      </thead>
+      <tbody className={styles.body}>
+        {scoresData.map(score => (
+          <tr key={score.id}>
+            <td>{score.playerName}</td>
+            <td>{score.score}</td>
           </tr>
-        </thead>
-        <tbody>
-          {scoresData.map(score => (
-            <tr key={score.id}>
-              <td>{score.playerName}</td>
-              <td>{score.score}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
