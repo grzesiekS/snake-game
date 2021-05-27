@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getLocalStorageData } from '../../../../utils/LocalStorage';
+import React from 'react';
 
 import styles from './ScoreList.module.scss';
 
@@ -9,14 +8,11 @@ interface scoreObject {
   score: number,
 }
 
-export const ScoreList: React.FC = () => {
+interface ScoreListProps {
+  scoresData: scoreObject[],
+}
 
-  const [scoresData, setScoresData] = useState<scoreObject[]>([]);
-
-  useEffect(() => {
-    const localStorageData:scoreObject[] = JSON.parse(getLocalStorageData('scoreList') || '[]');
-    setScoresData(localStorageData.sort((a,b) => a.score < b.score ? 1 : -1));
-  }, []);
+export const ScoreList: React.FC<ScoreListProps> = ({ scoresData }) => {
 
   return (
     <table className={styles.table}>
