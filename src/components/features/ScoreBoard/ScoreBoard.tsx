@@ -39,6 +39,7 @@ export const ScoreBoard: React.FC = () => {
       rightButtonText='No'
       rightButtonAction={() => setRemoveScoresModal(false)}
       showModal={removeScoresModal}
+      message={`This process can't be reverse`}
     >
       <div className={styles.container}>
         <NavBar links={linksData} />
