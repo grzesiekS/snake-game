@@ -44,12 +44,13 @@ export const ScoreBoard: React.FC = () => {
       <div className={styles.container}>
         <NavBar links={linksData} />
         <Title text='Score List' type='medium' />
-        <ScoreList scoresData={scoresData} />
+        { scoresData.length > 0 && <ScoreList scoresData={scoresData} />}
         <div className={styles.controlPanel}>
+          { scoresData.length > 0 && 
           <Button 
             text='Reset Score List'
             OnClickFunc={() => setRemoveScoresModal(true)}
-          />
+          />}
         </div>
       </div>
     </Modal>
