@@ -8,6 +8,10 @@ export const getLocalStorageData = (key: string):string | null => {
   return localStorage.getItem(key);
 };
 
+export const removeLocalStorageData = (key: string):void => {
+  localStorage.removeItem(key);
+};
+
 export const setLocalStorageScoreData = (key:string, data: scoreObject[]):void => {
   localStorage.setItem(key, JSON.stringify(data));
 };
