@@ -211,7 +211,7 @@ export const Game: React.FC = () => {
     setLocalStorageScoreData('scoreList', [
       {
         id: uuidv4(),
-        playerName: playerSorageData.name,
+        playerName: playerSorageData.name || 'Unknown',
         score: score,
       },
       ...scoreStorageData,
@@ -228,6 +228,13 @@ export const Game: React.FC = () => {
     setGameQuit(true);
     setSnakeLength(1);
   };
+
+  useEffect(() => {
+    const playerSorageData = JSON.parse(getSessionStorageData('player') || '{}');
+
+    if(!playerSorageData.name) setGameQuit(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     <Modal 
