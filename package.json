@@ -32,7 +32,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "nodemon server/server.ts",
+    "start": "nodemon server/server.js",
     "start-dev": "run-p start-dev:* ",
     "start-dev-silent": "run-p start > /dev/null",
     "start-dev:react": "react-scripts start",
