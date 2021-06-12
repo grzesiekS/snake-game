@@ -18,6 +18,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "node-sass": "^5.0.0",
+    "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -31,10 +32,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "run-p start:* ",
-    "start-silent": "run-p start > /dev/null",
-    "start:react": "react-scripts start",
-    "start-and-test": "run-p start-silent test ",
+    "start": "nodemon server/server.ts",
+    "start-dev": "run-p start-dev:* ",
+    "start-dev-silent": "run-p start > /dev/null",
+    "start-dev:react": "react-scripts start",
+    "start-dev-and-test": "run-p start-silent test ",
     "build": "react-scripts build",
     "test": "react-scripts test --noStackTrace",
     "test-all": "react-scripts test --watchAll=false --noStackTrace",
