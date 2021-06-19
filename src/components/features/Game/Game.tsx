@@ -156,12 +156,14 @@ export const Game: React.FC = () => {
       }
     },[movementDirection, snakeLength, handleGameOver]
   );
+  
+  const intervalIterateTime = 50;
 
   useEffect(() => {
     const interval = setInterval(() => {
       handleSnakeMovement();
       setSnakePosition([...position]);
-    }, 100);
+    }, intervalIterateTime);
 
     if(gameOver) clearInterval(interval);
 
