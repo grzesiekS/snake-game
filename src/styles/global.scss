@@ -12,6 +12,7 @@ body {
   background-color: $global-bg-color;
   color: $global-text-color;
   font-family: $globalFont;
+  overflow: hidden;
 }
 
 html {
